@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jersey+20&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -5,22 +6,122 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-display: "Urbanist", sans-serif;
+  --color-primary: #FF9324;
+  --breakpoint-3xl: 1920px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  body {
+    background-color: #fcfbfc;
+    overflow-x: hidden;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4);
+  border-radius: 10px;
+}
+
+
+@layer utilities {
+  @keyframes text-shine {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+
+  .animate-text-shine {
+    animation: text-shine 3s ease-in-out infinite alternate;
+  }
+
+
+  @keyframes blob1 {
+
+    0%,
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+      transform: translateY(30px, -60px) scale(1.1);
+    }
+
+    66% {
+      transform: translateY(-20px, 20px) scale(0.9);
+    }
+  }
+
+  @keyframes blob2 {
+
+    0%,
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+      transform: translateY(-40px, 60px) scale(1.05);
+    }
+
+    66% {
+      transform: translateY(20px, -40px) scale(0.95);
+    }
+  }
+
+  @keyframes blob3 {
+
+    0%,
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+      transform: translateY(30px, 140px) scale(1.15);
+    }
+
+    66% {
+      transform: translateY(-20px, -20px) scale(0.85);
+    }
+  }
+
+  .animate-blob1 {
+    animation: blob1 8s ease-in-out infinite;
+  }
+
+  .animate-blob2 {
+    animation: blob2 10s ease-in-out infinite;
+  }
+
+  .animate-blob3 {
+    animation: blob3 12s ease-in-out infinite;
+  }
+}
+
+
+
+.input-box {
+  @apply w-full flex justify-between gap-3 text-sm text-black bg-gray-50/50 rounded px-3 py-4 mb-4 mt-3 border border-gray-100 outline-none focus-within:border-gray-300;
+}
+
+.btn-primary {
+  @apply w-full flex items-center justify-center gap-3 text-white font-medium bg-black shadow-lg shadow-orange-600/5 p-[10px]  rounded-md hover:shadow-orange-600/15 hover:text-black cursor-pointer transition;
+}
+
+.btn-small {
+  @apply flex items-center justify-center gap-3 bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-black hover:text-white transition-colors cursor-pointer hover:shadow-2xl hover:shadow-orange-300 shadow-md;
 }
