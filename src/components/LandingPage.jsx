@@ -1,4 +1,5 @@
 import { APP_FEATURES } from '@/utils/data'
+import Link from 'next/link'
 import React from 'react'
 import { LuSparkles } from 'react-icons/lu'
 
@@ -13,12 +14,16 @@ const LandingPage = () => {
                             Interview Prep AI
                         </div>
                         <div className='space-x-4'>
-                            <button className='bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer'>
-                                Login
-                            </button>
-                            <button className='bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer'>
-                                Sign Up
-                            </button>
+                            <Link href={"/auth/login"}>
+                                <button className='bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer'>
+                                    Login
+                                </button>
+                            </Link>
+                            <Link href={"/auth/signup"}>
+                                <button className='bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 border hover:text-black border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer'>
+                                    Sign Up
+                                </button>
+                            </Link>
                         </div>
                     </header>
 
