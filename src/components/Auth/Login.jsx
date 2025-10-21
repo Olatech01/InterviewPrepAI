@@ -1,11 +1,44 @@
 "use client"
 import React from 'react'
 import Input from '../inputs/Input'
+import { validateEmail } from '@/utils/helper';
 
 const Login = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [error, setError] = React.useState('');
+
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        if (!validateEmail(email)) {
+            setError('Please enter a valid email address.');
+            return;
+        }
+
+        if(password.length < 6) {
+            setError('Password must be at least 6 characters long.');
+            return;
+        }
+
+        if(!password){
+            setError('Password is required.');
+            return;
+        }
+
+        setError('');
+
+        try {
+            
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                setError(error.response.data.message);
+            } else {
+                setError('An unexpected error occurred. Please try again later.');
+            }
+        }
+    }
     return (
         <div className='w-full min-h-screen flex items-center justify-center bg-[#FFFCEF]'>
             <div className='w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center'>
@@ -13,7 +46,7 @@ const Login = () => {
                 <p className='text-slate-700 mt-[5px] mb-6 text-xs'>
                     Please enter your credentials to log in to your account.
                 </p>
-                <form action="">
+                <form onSubmit={handleLogin}>
                     <Input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
