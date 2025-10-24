@@ -1,15 +1,24 @@
 "use client"
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Input from '../inputs/Input'
 import { validateEmail } from '@/utils/helper';
+import axiosInstance from '@/utils/axiosInstance';
+import { API_PATH } from '@/utils/apiPaths';
+import { useRouter } from 'next/navigation';
+import { UserContext } from '@/context/userContext';
 
 const Login = () => {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [error, setError] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
 
-    const handleLogin = (e) => {
+    const { updateUser} = useContext(UserContext)
+
+    const router = useRouter()
+
+
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         if (!validateEmail(email)) {
@@ -17,12 +26,12 @@ const Login = () => {
             return;
         }
 
-        if(password.length < 6) {
+        if (password.length < 6) {
             setError('Password must be at least 6 characters long.');
             return;
         }
 
-        if(!password){
+        if (!password) {
             setError('Password is required.');
             return;
         }
@@ -30,7 +39,18 @@ const Login = () => {
         setError('');
 
         try {
-            
+            const response = await axiosInstance.post(API_PATH.AUTH.LOGIN, {
+                email,
+                password
+            })
+
+            const { token } = response.data
+
+            if (token) {
+                localStorage.setItem("token", token)
+                updateUser(response.data)
+                router.push("/dashboard")
+            }
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 setError(error.response.data.message);

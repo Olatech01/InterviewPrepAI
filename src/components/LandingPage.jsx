@@ -1,9 +1,21 @@
+"use client"
+import { UserContext } from '@/context/userContext'
 import { APP_FEATURES } from '@/utils/data'
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
 import { LuSparkles } from 'react-icons/lu'
+import ProfileCard from './Cards/ProfileCard'
 
 const LandingPage = () => {
+    const { user } = useContext(UserContext)
+
+    const handleCTA = () => {
+        if (!user) {
+            window.location.reload("/auth/login")
+        } else {
+            window.location.reload("/dashboard")
+        }
+    }
     return (
         <>
             <div className='w-full min-h-full bg-[#FFFCEF]'>
@@ -13,18 +25,22 @@ const LandingPage = () => {
                         <div className='text-xl text-black font-bold'>
                             Interview Prep AI
                         </div>
-                        <div className='space-x-4'>
-                            <Link href={"/auth/login"}>
-                                <button className='bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer'>
-                                    Login
-                                </button>
-                            </Link>
-                            <Link href={"/auth/signup"}>
-                                <button className='bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 border hover:text-black border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer'>
-                                    Sign Up
-                                </button>
-                            </Link>
-                        </div>
+                        {user ? (
+                            <ProfileCard />
+                        ) : (
+                            <div className='space-x-4'>
+                                <Link href={"/auth/login"}>
+                                    <button className='bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer'>
+                                        Login
+                                    </button>
+                                </Link>
+                                <Link href={"/auth/signup"}>
+                                    <button className='bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 border hover:text-black border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer'>
+                                        Sign Up
+                                    </button>
+                                </Link>
+                            </div>
+                        )}
                     </header>
 
 
@@ -51,7 +67,7 @@ const LandingPage = () => {
                                 here..
                             </p>
 
-                            <button className='bg-black text-sm font-semibold text-white px-7 py-3 rounded-full hover:bg-yellow-100 border hover:text-black border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer'>
+                            <button onClick={handleCTA} className='bg-black text-sm font-semibold text-white px-7 py-3 rounded-full hover:bg-yellow-100 border hover:text-black border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer'>
                                 Get Started
                             </button>
                         </div>

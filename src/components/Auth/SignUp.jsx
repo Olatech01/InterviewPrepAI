@@ -1,8 +1,13 @@
 "use client"
-import React from 'react'
+import React, { useContext } from 'react'
 import Input from '../inputs/Input';
 import ProfilePhotoSelector from '../inputs/ProfilePhotoSelector';
 import { validateEmail } from '@/utils/helper';
+import { UserContext } from '@/context/userContext';
+import uploadImage from '@/utils/uploadImage';
+import axiosInstance from '@/utils/axiosInstance';
+import { API_PATH } from '@/utils/apiPaths';
+import { useRouter } from 'next/navigation';
 
 const SignUp = () => {
     const [profilePic, setProfilePic] = React.useState(null);
@@ -11,8 +16,13 @@ const SignUp = () => {
     const [password, setPassword] = React.useState('');
     const [error, setError] = React.useState('');
 
+    const router = useRouter();
 
-    const handleSignUp = (e) => {
+
+    const { updateUser} = useContext(UserContext)
+    
+
+    const handleSignUp = async (e) => {
         e.preventDefault();
 
         let profileImageUrl = '';
@@ -38,7 +48,24 @@ const SignUp = () => {
         setError('');
 
         try {
-            
+            if(profilePic) {
+                const imgUploadRes = await uploadImage(profilePic)
+                profileImageUrl = imgUploadRes.imageUrl || "";
+            }
+
+            const response = await axiosInstance.post(API_PATH.AUTH.REGISTER, {
+                name: fullName,
+                email,
+                password,
+                profileImageUrl
+            })
+
+            const { token } = response.data
+            if(token) {
+                localStorage.setItem("token", token)
+                updateUser(response.data)
+                router.push("/dashboard")
+            }
         } catch (error) {
            if (error.response && error.response.data && error.response.data.message) {
                 setError(error.response.data.message);
@@ -54,11 +81,11 @@ const SignUp = () => {
                 <p className='text-slate-700 mt-[5px] mb-6 text-xs'>
                     Join us today! Please fill in the details to create your account.
                 </p>
-                <form action="">
+                <form onSubmit={handleSignUp}>
                     <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
                     <Input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                         label="Full Name"
                         type="text"
                         placeholder="Enter your full name"

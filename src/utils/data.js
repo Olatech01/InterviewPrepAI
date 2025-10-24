@@ -1,4 +1,36 @@
+export const CARD_BG = [
+    {
+        id: 1, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 2, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 3, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 4, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 5, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 6, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 7, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 8, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 9, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
+    {
+        id: 10, bgColor: "linear-gradient(135deg, #e6f8f3 0%, #f7fcfa 100%)"
+    },
 
+]
 
 
 export const APP_FEATURES = [
