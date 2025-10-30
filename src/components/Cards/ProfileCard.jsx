@@ -17,7 +17,7 @@ const ProfileCard = () => {
             <div className='flex items-center'>
                 <img
                     src={user.profileImageUrl}
-                    alt=""
+                    alt="users"
                     className='rounded-full w-11 h-11 bg-gray-100 mr-3'
                 />
                 <div>

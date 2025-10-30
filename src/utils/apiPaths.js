@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "https://interviewprepai-backend-3ky3.onrender.com";
 
 
 export const API_PATH = {

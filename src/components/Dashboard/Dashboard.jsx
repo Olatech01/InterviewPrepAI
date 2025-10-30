@@ -8,6 +8,9 @@ import SummaryCard from '../Cards/SummaryCard'
 import { CARD_BG } from '@/utils/data'
 import moment from 'moment'
 import CreateSessionForm from './CreateSessionForm'
+import DeleteAlertContent from './DeleteAlertContent'
+import Modal from '../Modal'
+import { toast } from 'react-toastify'
 
 const Dashboard = () => {
     const router = useRouter()
@@ -15,8 +18,8 @@ const Dashboard = () => {
     const [openCreateModal, setOpenCreateModal] = useState(false);
     const [sessions, setSessions] = useState([])
     const [openDeleteAlert, setOpenDeleteAlert] = useState({
-        open: false,
-        data: null
+        data: null,
+        open: false
     })
 
 
@@ -29,7 +32,19 @@ const Dashboard = () => {
         }
     }
 
-    const deleteSession = (sessionData) => { }
+    const deleteSession = async (sessionData) => {
+        try {
+            await axiosInstance.delete(API_PATH.SESSION.DELETE(sessionData?._id))
+            toast.success("Session Deleted Successfully!!")
+            setOpenDeleteAlert({
+                open: false,
+                data: null
+            })
+            fetchAllSessions();
+        } catch (error) {
+            console.error("Error deleting session data:", error)
+        }
+    }
 
 
     useEffect(() => {
@@ -53,8 +68,7 @@ const Dashboard = () => {
                                 : ""
                         }
                         onSelect={() => router.push(`/interview-prep/${data?._id}`)}
-                        onDelete={() => setOpenDeleteAlert({ open: true, data })}
-
+                        onDelete={() => setOpenDeleteAlert({ open: true, data })} // fixed
                     />
                 ))}
             </div>
@@ -67,6 +81,23 @@ const Dashboard = () => {
             {openCreateModal && (
                 <CreateSessionForm />
             )}
+
+            <Modal
+                isOpen={openDeleteAlert?.open}
+                onClose={() => {
+                    setOpenDeleteAlert({ open: false, data: null })
+                }}
+                title={"Delete Alert"}
+            >
+                <div>
+                    <DeleteAlertContent
+                        content="Are you sure you want to delete this session detail!!"
+                        onDelete={() => deleteSession(openDeleteAlert.data)}
+                    />
+                </div>
+            </Modal>
+
+
         </div>
     )
 }

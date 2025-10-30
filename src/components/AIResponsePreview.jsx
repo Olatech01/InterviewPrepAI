@@ -5,7 +5,7 @@ import reactGfm from 'remark-gfm'
 import { Prism as SyntaxHightLighter } from 'react-syntax-highlighter'
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-const AIResponsePreview = ({ content }) => {
+const  AIResponsePreview = ({ content }) => {
     if (!content) return null
     return (
         <div className='max-w-4xl mx-auto'>

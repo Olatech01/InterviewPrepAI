@@ -15,6 +15,7 @@ const SignUp = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [error, setError] = React.useState('');
+    const [loading, setLoading] = React.useState(false)
 
     const router = useRouter();
 
@@ -26,6 +27,7 @@ const SignUp = () => {
         e.preventDefault();
 
         let profileImageUrl = '';
+        setLoading(true)
 
         if (!validateEmail(email)) {
             setError('Please enter a valid email address.');
@@ -72,6 +74,8 @@ const SignUp = () => {
             } else {
                 setError('An unexpected error occurred. Please try again later.');
             } 
+        } finally {
+            setLoading(false)
         }
     }
     return (
