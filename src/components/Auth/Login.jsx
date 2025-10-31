@@ -9,6 +9,7 @@ import { UserContext } from '@/context/userContext';
 import { PiLockKey } from "react-icons/pi";
 import { CiMail } from "react-icons/ci";
 import { LuEye, LuEyeOff } from 'react-icons/lu'
+import { toast } from 'react-toastify';
 
 
 const Login = () => {
@@ -59,6 +60,7 @@ const Login = () => {
                 localStorage.setItem("token", token)
                 updateUser(response.data)
                 router.push("/dashboard")
+                toast.success("Login Successfully!!!")
             }
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
