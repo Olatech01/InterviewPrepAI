@@ -24,7 +24,7 @@ const QuestionCard = ({ question, answer, onLearnMore, isPinned, onTogglePin }) 
     }
     return <>
         <div className='bg-white rounded-lg mb-4 overflow-hidden py-4 px-5 shadow-xl shadow-gray-100/70 border border-gray-100/60 group'>
-            <div className='flex md:flex-row flex-col-reverse items-start justify-between cursor-pointer'>
+            <div className='flex md:flex-row gap-2.5 flex-col-reverse items-start justify-between cursor-pointer'>
                 <div className='flex items-start gap-3.5'>
                     <span className='text-xs md:text-[15px] font-semibold text-gray-400 leading-10'>
                         Q
@@ -36,7 +36,7 @@ const QuestionCard = ({ question, answer, onLearnMore, isPinned, onTogglePin }) 
                         {question}
                     </h3>
                 </div>
-                <div className='flex items-center justify-end ml-4 relative'>
+                <div className='flex md:items-center w-full md:w-[100px] justify-end items-end  ml-4 relative'>
                     <div
                         className={`flex ${isExpanded ? "md:flex" : "md:hidden group-hover:flex"
                             }`}

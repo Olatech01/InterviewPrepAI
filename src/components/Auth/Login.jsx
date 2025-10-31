@@ -10,6 +10,7 @@ import { PiLockKey } from "react-icons/pi";
 import { CiMail } from "react-icons/ci";
 import { LuEye, LuEyeOff } from 'react-icons/lu'
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 
 const Login = () => {
@@ -149,7 +150,7 @@ const Login = () => {
                         )}
                     </button>
                     <p className='text-[13px] text-slate-800 mt-3'>
-                        Don't have an account? <span className='text-primary font-medium underline cursor-pointer'>Sign Up</span>
+                        Don't have an account? <Link href={"/auth/signup"} className='text-primary font-medium underline cursor-pointer'>Sign Up</Link>
                     </p>
                 </form>
             </div>

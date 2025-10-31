@@ -5,7 +5,7 @@ import { BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
-    timeout: 80000,
+    timeout: 30000,
     headers: {
         "Content-Type" : "application/json",
         Accept: "application/json"
@@ -29,22 +29,20 @@ axiosInstance.interceptors.request.use(
 
 
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response
-    },
-    (error) => {
-        if(error.response) {
-            if(error.response.status === 401){
-                window.location.href = "/"
-            } else if (error.response.status === 500) {
-                console.error("Server Error. Please try again later")
-            }
-        } else if (error.code === "ECONNABORTED"){
-            console.error("Request timeout. Try again")
+    (response) => response,
+    async (error) => {
+        if (error.response) {
+            // Handle response errors
+            return Promise.reject(error);
+        } else if (error.code === "ECONNABORTED") {
+            // Handle timeout more gracefully
+            const customError = new Error("Request timed out. Please check your connection and try again.");
+            customError.isTimeout = true;
+            return Promise.reject(customError);
         }
-        return Promise.reject(error)
+        return Promise.reject(error);
     }
-)
+);
 
 
 export default axiosInstance
