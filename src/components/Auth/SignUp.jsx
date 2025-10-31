@@ -81,7 +81,7 @@ const SignUp = () => {
 
             // }
             toast.success("Registration successful! Please verify your email.");
-            router.push(`/auth/verify?email=${encodeURIComponent(email)}`);
+            router.push("/auth/login");
             // const { token } = response.data
             // if (token) {
             //     localStorage.setItem("token", token)
@@ -91,7 +91,7 @@ const SignUp = () => {
         } catch (error) {
             if (error.isTimeout) {
                 toast.warning("Registration may have succeeded but the response timed out. Please check your email for verification.");
-                router.push(`/auth/verify?email=${encodeURIComponent(email)}`);
+                router.push("/auth/login");
                 return;
             }
 

@@ -16,7 +16,7 @@ const Modal = ({ children, isOpen, onClose, title, hideHeader }) => {
 
       <button
         onClick={onClose}
-        className='text-gray-400 bg-transparent hover:bg-orange-100 hover:text-gray-900 rounded-lg text-sm h-8 w-8 flex items-center justify-center absolute top-3.5 right-3.5 cursor-pointer'
+        className='text-gray-400 bg-transparent hover:bg-orange-100 hover:text-gray-900 rounded-lg text-sm h-8 w-8 flex items-center justify-center absolute right-3.5 cursor-pointer'
       >
         < FaTimes />
       </button>

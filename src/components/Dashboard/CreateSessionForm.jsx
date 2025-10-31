@@ -5,6 +5,7 @@ import Input from '../inputs/Input'
 import SpinnerLoader from '../Loader/SpinnerLoader'
 import axiosInstance from '@/utils/axiosInstance'
 import { API_PATH } from '@/utils/apiPaths'
+import { toast } from 'react-toastify'
 
 const CreateSessionForm = () => {
     const [formData, setFormData] = useState({
@@ -57,6 +58,7 @@ const CreateSessionForm = () => {
             })
 
             if (response.data?.session?._id) {
+                toast.success("Session Created Successfully!!")
                 router.push(`/interview-prep/${response.data?.session?._id}`)
             }
         } catch (error) {

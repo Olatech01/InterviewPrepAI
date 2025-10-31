@@ -152,7 +152,7 @@ const InterviewPrep = () => {
                 }
             />
 
-            <div className="container mx-auto py-4 px-4 md:px-0">
+            <div className="container mx-auto py-4 px-3 md:px-4">
                 <h2 className="text-lg font-semibold text-black">Interview Q & A</h2>
 
                 <div className="grid grid-cols-12 gap-4 mt-5 mb-10">
