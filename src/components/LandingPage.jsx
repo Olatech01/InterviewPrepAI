@@ -2,12 +2,13 @@
 import { UserContext } from '@/context/userContext'
 import { APP_FEATURES } from '@/utils/data'
 import Link from 'next/link'
-import React, { useContext } from 'react'
-import { LuSparkles } from 'react-icons/lu'
+import React, { useContext, useState } from 'react'
+import { LuSparkles,  LuMenu, LuX } from 'react-icons/lu'
 import ProfileCard from './Cards/ProfileCard'
 
 const LandingPage = () => {
     const { user } = useContext(UserContext)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const handleCTA = () => {
         if (!user) {
@@ -21,25 +22,52 @@ const LandingPage = () => {
             <div className='w-full min-h-full bg-[#FFFCEF]'>
                 <div className='w-[500px] h-[500px] bg-amber-200/20 blur-[65px] absolute top-0 left-0' />
                 <div className='container mx-auto px-4 pt-6 pb-[200px] relative z-10'>
-                    <header className='flex justify-between items-center px-4 mb-16'>
+                    <header className='flex justify-between items-center px-4 mb-16 relative'>
                         <div className='text-xl text-black font-bold'>
                             Interview Prep AI
                         </div>
                         {user ? (
                             <ProfileCard />
                         ) : (
-                            <div className='space-x-4'>
-                                <Link href={"/auth/login"}>
-                                    <button className='bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer'>
-                                        Login
-                                    </button>
-                                </Link>
-                                <Link href={"/auth/signup"}>
-                                    <button className='bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 border hover:text-black border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer'>
-                                        Sign Up
-                                    </button>
-                                </Link>
-                            </div>
+                            <>
+                                {/* Desktop Menu */}
+                                <div className='space-x-4 hidden md:block'>
+                                    <Link href={"/auth/login"}>
+                                        <button className='bg-gradient-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer'>
+                                            Login
+                                        </button>
+                                    </Link>
+                                    <Link href={"/auth/signup"}>
+                                        <button className='bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 border hover:text-black border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer'>
+                                            Sign Up
+                                        </button>
+                                    </Link>
+                                </div>
+
+                                {/* Mobile Menu Button */}
+                                <button
+                                    className='md:hidden text-black p-2 hover:bg-amber-100 rounded-full transition-colors'
+                                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                >
+                                    {isMenuOpen ? <LuX size={24} /> : <LuMenu size={24} />}
+                                </button>
+
+                                {/* Mobile Menu Dropdown */}
+                                {isMenuOpen && (
+                                    <div className='absolute top-full right-0 mt-2 w-48 py-2 bg-white rounded-xl shadow-lg border border-amber-100 md:hidden'>
+                                        <Link href={"/auth/login"}>
+                                            <div className='px-4 py-2 text-[18px] font-medium text-gray-700 hover:bg-amber-50 cursor-pointer'>
+                                                Login
+                                            </div>
+                                        </Link>
+                                        <Link href={"/auth/signup"}>
+                                            <div className='px-4 py-2 text-[18px] font-medium text-gray-700 hover:bg-amber-50 cursor-pointer'>
+                                                Sign Up
+                                            </div>
+                                        </Link>
+                                    </div>
+                                )}
+                            </>
                         )}
                     </header>
 

@@ -11,6 +11,7 @@ import CreateSessionForm from './CreateSessionForm'
 import DeleteAlertContent from './DeleteAlertContent'
 import Modal from '../Modal'
 import { toast } from 'react-toastify'
+import { LuLoader } from 'react-icons/lu'
 
 const Dashboard = () => {
     const router = useRouter()
@@ -21,6 +22,7 @@ const Dashboard = () => {
         data: null,
         open: false
     })
+    const [isLoading, setIsLoading] = useState(true)
 
 
     const fetchAllSessions = async () => {
@@ -29,6 +31,8 @@ const Dashboard = () => {
             setSessions(response.data)
         } catch (error) {
             console.error("Error fetching sessions data:", error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -53,7 +57,57 @@ const Dashboard = () => {
     }, [])
     return (
         <div className='container mx-auto pt-4 pb-4'>
-            {sessions?.length === 0 ? (
+            {/* {sessions?.length === 0 ? (
+                <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
+                    <div className="w-full max-w-md text-center">
+                        <div className="mb-4">
+                            <LuPlus className="mx-auto h-12 w-12 text-gray-400" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                            No Interview Sessions Yet
+                        </h3>
+                        <p className="text-sm text-gray-500 mb-6">
+                            Get started by creating your first interview preparation session.
+                            Click the button below to begin your journey!
+                        </p>
+                        <button
+                            onClick={() => setOpenCreateModal(true)}
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff9324] to-[#e99a4b] text-white rounded-full hover:shadow-lg transition-all duration-200"
+                        >
+                            <LuPlus className="h-5 w-5" />
+                            Create First Session
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-7 mt-1 pb-6 px-4 md:mx-0'>
+                    {sessions?.map((data, index) => (
+                        <SummaryCard
+                            key={data?._id}
+                            colors={CARD_BG[index % CARD_BG.length]}
+                            role={data?.role || ""}
+                            topicsToFocus={data?.topicsToFocus || ""}
+                            experience={data?.experience || "_"}
+                            questions={data?.questions || ""}
+                            description={data?.description || ""}
+                            lastUpdated={
+                                data?.updatedAt
+                                    ? moment(data.updatedAt).format("Do MM YYYY")
+                                    : ""
+                            }
+                            onSelect={() => router.push(`/interview-prep/${data?._id}`)}
+                            onDelete={() => setOpenDeleteAlert({ open: true, data })}
+                        />
+                    ))}
+                </div>
+            )} */}
+
+            {isLoading ? (
+                <div className="flex flex-col items-center justify-center min-h-[60vh]">
+                    <LuLoader className="w-10 h-10 text-orange-500 animate-spin" />
+                    <p className="mt-4 text-sm text-gray-500">Loading your sessions...</p>
+                </div>
+            ) : sessions?.length === 0 ? (
                 <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
                     <div className="w-full max-w-md text-center">
                         <div className="mb-4">
