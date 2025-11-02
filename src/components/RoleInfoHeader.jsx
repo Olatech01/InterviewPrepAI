@@ -12,8 +12,8 @@ const RoleInfoHeader = ({
     lastUpdated
 }) => {
     return <div className='bg-white relative'>
-        <div className='container mx-auto px-10 md:px-4'>
-            <div className='h-[200px] flex flex-col justify-center  relative z-10'>
+        <div className='container mx-auto px-6 py-4 md:py-0 md:px-4'>
+            <div className='md:h-[200px] flex flex-col justify-center  relative z-10'>
                 <Link href={"/dashboard"}>
                     <button className='flex items-center cursor-pointer justify-between border border-gray-400 rounded-full px-6 gap-2 py-1 w-fit'>
                         <IoIosArrowRoundBack /> Back
@@ -34,7 +34,7 @@ const RoleInfoHeader = ({
                     </div>
                 </div>
 
-                <div className='flex items-center gap-3 mt-4'>
+                <div className='grid grid-cols-1 md:grid-cols-3 md:w-[500px] items-center flex-col md:flex-row gap-3 mt-4'>
                     <div className='text-[10px] font-medium text-white bg-black px-3 py-1 rounded-full'>
                         Experience: {experience} {experience === 1 ? 'Year' : 'Years'}
                     </div>
