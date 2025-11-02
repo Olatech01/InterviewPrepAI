@@ -80,7 +80,7 @@ const SignUp = () => {
             //     router.push(`/auth/verify?email=${encodeURIComponent(email)}`);
 
             // }
-            toast.success("Registration successful! Please verify your email.");
+            toast.success("Registration successful!");
             router.push("/auth/login");
             // const { token } = response.data
             // if (token) {
